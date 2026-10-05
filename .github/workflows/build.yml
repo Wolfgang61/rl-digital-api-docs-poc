@@ -27,23 +27,11 @@ jobs:
         with:
           node-version: '22'
 
-      - name: Install Dart Sass
-        run: |
-          npm install -g sass
-          sass --version
-
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v3
         with:
           hugo-version: '0.167.0'
           extended: true
-
-      - name: Verify Environment
-        run: |
-          hugo version
-          hugo env
-          which sass
-          sass --version
 
       - name: Install Dependencies
         run: |
@@ -51,6 +39,15 @@ jobs:
           hugo mod tidy
           hugo mod npm pack
           npm install
+
+      - name: Verify Environment
+        run: |
+          hugo version
+          hugo env
+          which sass || true
+          sass --version || true
+          npm ls sass
+          npm ls sass-embedded
 
       - name: Build
         run: hugo --gc
