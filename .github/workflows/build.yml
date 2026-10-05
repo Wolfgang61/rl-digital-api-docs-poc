@@ -68,6 +68,13 @@ jobs:
           echo "=== Node Modules Bin ==="
           ls -la node_modules/.bin
 
+      - name: Test Sass
+        run: |
+          sass --version
+          echo '$color: red; .test { color: $color; }' > test.scss
+          sass test.scss test.css
+          cat test.css
+
       - name: Build
         run: |
           hugo --gc
