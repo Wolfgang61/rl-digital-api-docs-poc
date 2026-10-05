@@ -40,11 +40,12 @@ jobs:
 
       - name: Verify Environment
         run: |
+          hugo version
           hugo env
           which sass
           sass --version
 
-      - name: Install dependencies
+      - name: Install Dependencies
         run: |
           npm install
           hugo mod tidy
@@ -52,7 +53,7 @@ jobs:
           npm install
 
       - name: Build
-        run: hugo
+        run: hugo --gc
 
       - name: Upload Pages Artifact
         uses: actions/upload-pages-artifact@v3
