@@ -1,6 +1,6 @@
 name: Build API documentation
 on:
-  pull_request:
+  workflow_dispatch:
   push:
     branches: [main]
 permissions:
