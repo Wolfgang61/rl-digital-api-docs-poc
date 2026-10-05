@@ -32,7 +32,9 @@ jobs:
           extended: true
 
       - name: Install Dependencies
-        run: npm ci
+        run: |
+          npm ci
+          echo "$PWD/node_modules/sass-embedded-linux-x64/dart-sass" >> "$GITHUB_PATH"
 
       - name: Build
         run: hugo --minify
