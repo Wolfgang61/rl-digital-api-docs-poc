@@ -5,7 +5,7 @@ on:
     branches:
       - main
 
-   workflow_dispatch:
+  workflow_dispatch:
 Weitere Zeilen anzeigen
 
 permissions:
