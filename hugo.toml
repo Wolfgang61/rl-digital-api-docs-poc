@@ -1,4 +1,4 @@
-baseURL = "/"
+baseURL = "https://wolfgang61.github.io/rl-digital-api-docs-poc/"
 title = "RL Digital API Documentation"
 locale = "de-DE"
 defaultContentLanguage = "de"
