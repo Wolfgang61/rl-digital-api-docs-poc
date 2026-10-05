@@ -2,6 +2,10 @@ name: Deploy Hugo Site
 
 on:
   workflow_dispatch:
+  workflow_run:
+    workflows: ["Build API documentation"]
+    types:
+      - completed
 
 permissions:
   pages: write
