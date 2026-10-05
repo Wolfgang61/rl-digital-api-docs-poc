@@ -1,0 +1,17 @@
+{
+  "name": "rl-digital-api-docs",
+  "version": "0.2.0-poc",
+  "private": true,
+  "description": "Windows PoC for DIGIT-2604 using Hugo and Docsy",
+  "scripts": {
+    "start": "hugo server --disableFastRender",
+    "build": "hugo --minify",
+    "check": "hugo --panicOnWarning"
+  },
+  "devDependencies": {
+    "sass-embedded": "1.102.0"
+  },
+  "workspaces": [
+    "packages/hugoautogen"
+  ]
+}

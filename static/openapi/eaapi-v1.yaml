@@ -1,0 +1,65 @@
+openapi: 3.0.3
+info:
+  title: RL Digital Author API
+  version: 1.0.0-poc
+  description: Repräsentative PoC-Spezifikation, nicht produktiv.
+servers:
+  - url: https://api.example.invalid/author/v1
+paths:
+  /documents:
+    post:
+      summary: Gebrauchsinformation einliefern
+      operationId: createDocument
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateDocumentRequest'
+      responses:
+        '202':
+          description: Einlieferung angenommen
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DocumentStatus'
+        '400':
+          description: Ungültige Eingabe
+  /documents/{documentId}:
+    get:
+      summary: Einlieferungsstatus abrufen
+      parameters:
+        - $ref: '#/components/parameters/DocumentId'
+      responses:
+        '200':
+          description: Aktueller Status
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DocumentStatus'
+        '404':
+          description: Dokument nicht gefunden
+components:
+  parameters:
+    DocumentId:
+      name: documentId
+      in: path
+      required: true
+      schema: { type: string }
+  schemas:
+    CreateDocumentRequest:
+      type: object
+      required: [externalId, productId, language, contentUrl]
+      properties:
+        externalId: { type: string, example: GI-2026-00471 }
+        productId: { type: string, example: PZN-12345678 }
+        language: { type: string, example: de-DE }
+        contentUrl: { type: string, format: uri }
+    DocumentStatus:
+      type: object
+      properties:
+        documentId: { type: string, example: doc-8d417a }
+        status:
+          type: string
+          enum: [RECEIVED, VALIDATING, ACCEPTED, REJECTED, PUBLISHED]
+        receivedAt: { type: string, format: date-time }

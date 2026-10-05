@@ -1,0 +1,27 @@
+openapi: 3.0.3
+info:
+  title: RL Digital Consumer API
+  version: 1.0.0-poc
+  description: Repräsentative PoC-Spezifikation, nicht produktiv.
+servers:
+  - url: https://api.example.invalid/consumer/v1
+paths:
+  /documents/{documentId}:
+    get:
+      summary: Veröffentlichtes Dokument abrufen
+      parameters:
+        - name: documentId
+          in: path
+          required: true
+          schema: { type: string }
+      responses:
+        '200':
+          description: Dokumentmetadaten
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  documentId: { type: string }
+                  downloadUrl: { type: string, format: uri }
+        '404': { description: Dokument nicht gefunden }

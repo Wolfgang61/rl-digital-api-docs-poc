@@ -1,0 +1,38 @@
+openapi: 3.0.3
+info:
+  title: RL Digital Consumer API
+  version: 2.0.0-poc
+  description: Repräsentative PoC-Spezifikation, nicht produktiv.
+servers:
+  - url: https://api.example.invalid/consumer/v2
+paths:
+  /products/{productId}/documents:
+    get:
+      summary: Veröffentlichte Dokumente eines Produkts suchen
+      parameters:
+        - name: productId
+          in: path
+          required: true
+          schema: { type: string }
+        - name: language
+          in: query
+          schema: { type: string, example: de-DE }
+      responses:
+        '200':
+          description: Dokumentliste
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  productId: { type: string }
+                  documents:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        documentId: { type: string }
+                        language: { type: string }
+                        version: { type: string }
+                        publishedAt: { type: string, format: date-time }
+                        downloadUrl: { type: string, format: uri }

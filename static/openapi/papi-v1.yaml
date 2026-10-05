@@ -1,0 +1,51 @@
+openapi: 3.0.3
+info:
+  title: RL Digital Portal API
+  version: 1.0.0-poc
+  description: Repräsentative interne PoC-Spezifikation, nicht produktiv.
+servers:
+  - url: https://portal-api.example.invalid/portal/v1
+paths:
+  /publication-jobs:
+    post:
+      summary: Veröffentlichungsauftrag erstellen
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [documentId, target]
+              properties:
+                documentId: { type: string }
+                target: { type: string, enum: [CUSTOMER_PORTAL] }
+                publishAt: { type: string, format: date-time }
+      responses:
+        '202':
+          description: Auftrag angenommen
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublicationJob'
+  /publication-jobs/{jobId}:
+    get:
+      summary: Status eines Veröffentlichungsauftrags abrufen
+      parameters:
+        - name: jobId
+          in: path
+          required: true
+          schema: { type: string }
+      responses:
+        '200':
+          description: Auftragsstatus
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublicationJob'
+components:
+  schemas:
+    PublicationJob:
+      type: object
+      properties:
+        jobId: { type: string, example: job-4711 }
+        status: { type: string, enum: [QUEUED, RUNNING, SUCCEEDED, FAILED] }
