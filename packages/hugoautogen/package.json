@@ -4,7 +4,7 @@
     "bootstrap": "5.3.8"
   },
   "devDependencies": {},
-  "name": "hugoautogen",
+  "name": "rl-digital-api-docs-poc",
   "private": true,
   "version": "0.1.0"
 }
