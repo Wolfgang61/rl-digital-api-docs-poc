@@ -40,17 +40,26 @@ jobs:
           hugo mod npm pack
           npm install
 
+      - name: Add npm binaries to PATH
+        run: |
+          echo "$PWD/node_modules/.bin" >> $GITHUB_PATH
+
       - name: Verify Environment
         run: |
           hugo version
           hugo env
           which sass || true
-          sass --version || true
+          npx sass --version
+          npx sass-embedded --version
           npm ls sass
           npm ls sass-embedded
 
       - name: Build
-        run: hugo --gc
+        env:
+          PATH: ${{ github.workspace }}/node_modules/.bin:${{ env.PATH }}
+        run: |
+          npx sass --version
+          hugo --gc
 
       - name: Upload Pages Artifact
         uses: actions/upload-pages-artifact@v3
