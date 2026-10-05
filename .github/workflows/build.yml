@@ -33,6 +33,12 @@ jobs:
           hugo-version: '0.167.0'
           extended: true
 
+      - name: Install native Dart Sass
+        run: |
+          wget -q https://github.com/sass/dart-sass/releases/download/1.105.1/dart-sass-1.105.1-linux-x64.tar.gz
+          tar -xzf dart-sass-1.105.1-linux-x64.tar.gz
+          echo "$PWD/dart-sass" >> $GITHUB_PATH
+
       - name: Install Dependencies
         run: |
           npm install
@@ -40,44 +46,14 @@ jobs:
           hugo mod npm pack
           npm install
 
-      - name: Add Node Binaries To Path
-        run: |
-          echo "$PWD/node_modules/.bin" >> $GITHUB_PATH
-
       - name: Verify Environment
         run: |
-          echo "=== Hugo Version ==="
-          hugo version
-
-          echo "=== Hugo Environment ==="
+          which sass
+          sass --version
           hugo env
 
-          echo "=== Sass Location ==="
-          which sass || true
-
-          echo "=== Sass Version ==="
-          sass --version || true
-
-          echo "=== Embedded Sass Version ==="
-          npx sass-embedded --version || true
-
-          echo "=== Installed Packages ==="
-          npm ls sass
-          npm ls sass-embedded
-
-          echo "=== Node Modules Bin ==="
-          ls -la node_modules/.bin
-
-      - name: Test Sass
-        run: |
-          sass --version
-          echo '$color: red; .test { color: $color; }' > test.scss
-          sass test.scss test.css
-          cat test.css
-
       - name: Build
-        run: |
-          hugo --gc
+        run: hugo --gc
 
       - name: Upload Pages Artifact
         uses: actions/upload-pages-artifact@v3
