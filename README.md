@@ -55,3 +55,5 @@ Die statische Site wird in `public\` erzeugt.
 - `GET /consumer/v2/products/{productId}/documents`
 - `POST /portal/v1/publication-jobs`
 - `GET /portal/v1/publication-jobs/{jobId}`
+=======
+# rl-digital-api-docs-poc

@@ -35,3 +35,4 @@ style = "github"
 
 [markup.goldmark.renderer]
 unsafe = true
+
