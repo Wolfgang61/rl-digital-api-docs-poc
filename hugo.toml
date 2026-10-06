@@ -4,6 +4,7 @@ locale = "de-DE"
 defaultContentLanguage = "de"
 enableRobotsTXT = false
 enableGitInfo = true
+noindex = true
 
 [module]
 proxy = "direct"
